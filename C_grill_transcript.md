@@ -258,31 +258,34 @@ Frontstage, Backstage, Processos de Suporte), as linhas divisórias
 
   Como você quer tratar as evidências físicas no blueprint?
 
-  - A — Apenas evidências com status [N] ou [O]: Formulário Empregador Web, login
-  gov.br, comprovante de solicitação, notificação digital via gov.br/CTPS
-  Digital, extrato no App Benefícios Sociais CAIXA / CAIXA Tem, comprovante de
-  saque, comprovante de protocolo de recurso. SMS/push e protocolo verbal ficam
-  fora. Blueprint conservador — cada célula de evidência é verificável.
+  - A — Apenas evidências sólidas/observáveis [N], [O] e [T]: Formulário
+  Empregador Web, login gov.br, comprovante de solicitação, notificação digital
+  via gov.br/CTPS Digital, extrato no App Benefícios Sociais CAIXA / CAIXA Tem,
+  comprovante de saque, comprovante de protocolo de recurso — e, agora que há
+  ligação-teste, as locuções da URA, o pedido de CPF+data e o protocolo verbal,
+  que passam a ser evidência observada [T]. SMS/push [I] fica fora. Blueprint
+  conservador — cada célula é verificável (por norma, portal ou ligação).
   - B — Todas as evidências do v3 com marcação de status: Inclui SMS/push [I],
-  protocolo verbal [A], áudio da URA [O canal / I conteúdo]. Cada célula recebe
-  etiqueta de evidência. Completo, mais trabalhoso visualmente.
+  além das observadas [T]. Cada célula recebe etiqueta de evidência. Completo,
+  mais trabalhoso visualmente.
   - C — Evidências agrupadas por momento da jornada, com marcação seletiva:
   Agrupar por etapa: (1) pré-ligação [N]: formulário, TRCT, login gov.br; (2)
-  durante a ligação ⚠: áudio URA [O], protocolo verbal [A]; (3) pós-ligação
+  durante a ligação [T]: áudio/locuções da URA, protocolo verbal; (3) pós-ligação
   [N]/[O]: extrato, comprovante de saque, notificação digital, comprovante de
-  recurso. SMS/push marcado como [I] numa nota de rodapé da célula, não como
-  evidência principal.
+  recurso. SMS/push marcado como [I] numa nota de rodapé, não como evidência
+  principal.
 
   ▎ Minha recomendação: A. A camada de Evidências Físicas num blueprint AS-IS 
-  ▎ deve refletir o que existe, não o que pode existir. Incluir SMS/push [I] como
-  ▎ evidência física polui a camada com especulação. A decisão é coerente com P3
-  ▎ (alta granularidade com marcação ⚠ nas ações do cidadão): as ações podem ser
-  ▎ hipotéticas, mas as evidências físicas devem ser o mais sólidas possível — é
-  ▎ a camada que ancora o blueprint na realidade observável.
+  ▎ deve refletir o que existe, não o que pode existir. Antes da ligação-teste, 
+  ▎ isso significava só [N]/[O]; agora a ligação tornou observável o que era 
+  ▎ inferência, então [T] entra como evidência de primeira linha (é literalmente 
+  ▎ "a realidade observável" que esta camada deve ancorar). SMS/push [I] continua
+  ▎ fora — é o único item que permanece especulativo. Coerente com P3: ações
+  ▎ podem ter sido hipóteses na v2, mas após a ligação as evidências são sólidas.
 
 ✻ Churned for 13s
 
-❯ A                                                                              
+❯ A — incluindo [T] como evidência observável; só SMS/push [I] fica fora.        
 
 ⏺ P8 — Formato de saída do blueprint
 

@@ -97,6 +97,22 @@ Este documento distingue cinco níveis de evidência:
 
 ## Resposta às Falhas da Auditoria v2
 
+### ★ Resolução da crítica central da auditoria v2
+
+> **Crítica da auditoria v2 (verbatim):** *"A v2 é substancialmente melhor que a v1, mas ainda não pode ser tratada como AS-IS verificado da URA. (…) Pontos abertos remanescentes continuam centrais: árvore da URA, autenticação, transbordo para humano, SLA, protocolo (…)."*
+
+**Como a v3 resolve:** esta v3 executa exatamente a validação que a auditoria exigiu — **ligação-teste documentada ao 0800-726-0207, com transcrição turno a turno em §0** (locuções entre aspas, teclas DTMF, diálogo com o atendente). A transcrição valida, ponto a ponto, cada item que a auditoria listou como aberto:
+
+| Ponto aberto na auditoria v2 | Resolvido na v3 por | Status |
+|---|---|---|
+| Árvore da URA (opções, ordem, loop) | §0, turnos 1–2 e 8: menu de benefícios, tecla 2 → SD, loop ao errar | ✅ AS-IS [T] |
+| Autenticação | §0, turno 3: CPF + data de nascimento; repede e transborda se divergente | ✅ AS-IS [T] |
+| Transbordo para humano | §0, turno 5: opção "0" → fila com música de espera no horário humano | ✅ AS-IS [T] |
+| Escopo do atendente | §0, turno 6: resolve pagamento; orienta gov.br/158 para concessão (F9, F18) | ✅ AS-IS [T] |
+| Protocolo | §0, turno 7: protocolo verbal, sem SMS/e-mail (F13) | ✅ AS-IS [T] |
+
+Com isso, **o Eixo 1 deixa de ser hipótese operacional e passa a jornada AS-IS verificada**. Os únicos itens que permanecem fora são os de bastidor interno e métricas (V6, V7, V9–V12), que nenhuma ligação revela — não são etapas da jornada, e a auditoria os tratou como "SLA/integração", não como fluxo do cidadão.
+
 ### Falhas das auditorias v1 remanescentes na v2
 
 **1.2 (residual) "Agendamento" atribuído ao App Benefícios Sociais CAIXA → CORRIGIDO**
