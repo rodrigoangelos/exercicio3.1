@@ -25,6 +25,30 @@
 
 ---
 
+## Rastreabilidade: Decisões Grill-me → Blueprint
+
+| P do Grill-me | Recomendação | Implementação no Blueprint |
+|---|---|---|
+| **P1 — Escopo** | Jornada URA Caixa (0800) apenas | ✓ Etapas E0-E7 documentadas; MTE como contexto pré/pós |
+| **P2 — Início/Fim** | Cidadão decide ligar / Chamada encerrada | ✓ E1: "Cidadão decide ligar"; E7: "Encerramento chamada" |
+| **P3 — Granularidade** | Alta + marcação ⚠ por etapa | ✓ E2-E7 marcadas ⚠ Hipótese [I]; detalhamento com ⚠ em cada célula |
+| **P4 — Visibilidade** | Linha dupla (Cidadão/URA e URA/Sistemas) | ✓ Linhas de Interação, Visibilidade e Interação Interna presentes |
+| **P5 — Suporte** | Agrupamento funcional com marcação [N/O/I] | ✓ Clusters: elegibilidade [N], identificação [N/I], pagamento [I], requerimento [N], competências [N] |
+| **P6 — Fail Points** | Crítico [⚡N/O] vs Hipotético [〰A/I] | ✓ F0-F4a, F9-F10, F17-F24 marcados ⚡; F1-F3, F4b, F6-F8, F11, F13-F15 marcados 〰 |
+| **P7 — Evidências** | [N]/[O] apenas como principal | ✓ Evidências com marcação [I]/[A] incluídas com ressalvas; foco [N]/[O] |
+| **P8 — Formato** | Tabela + Diagrama Mermaid | ✓ Tabela Markdown (E0-E7) + Diagrama flowchart + Diagrama sequenceDiagram |
+
+**Atores e Elementos Centrais (mencionados no grill e presentes no blueprint):**
+- ✓ Cidadão (baixo letramento digital) — presente E0-E7
+- ✓ URA 0800-726-0207 (frontstage canal) — E2-E6
+- ✓ Atendente humano Caixa (frontstage) — E6
+- ✓ Sistemas: CNIS, Sistema SD (MTE), Sistemas Caixa (pagamento), Empregador Web, Gov.br
+- ✓ MTE / Gov.br / 158 / CTPS Digital (canais corretos alternativos) — redirecionamentos E0, E1, E6-E7
+- ✓ Fail points críticos [N/O]: F0, F4a, F5, F9, F10, F16, F17-F24 (18 total)
+- ✓ Fail points hipotéticos [A/I]: F1-F3, F4b, F6-F8, F11, F13-F15 (10 total)
+
+---
+
 ## Diagrama de Sequência — Fluxo de Interações
 
 ```mermaid
