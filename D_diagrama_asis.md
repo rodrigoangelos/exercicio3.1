@@ -205,24 +205,41 @@ flowchart TD
 
 ## Handoffs explícitos entre atores e etapas
 
-| De | Para | Via | Tipo |
-|---|---|---|---|
-| **Empregador** | Empregador Web | Dados da rescisão (ICP-Brasil) | Normativo [N] |
-| **Empregador Web** | Base de elegibilidade (CNIS/eSocial/FGTS) | Alimentação de dados | Normativo [N] |
-| **Empregador Web** → F0 | Habilitação bloqueada | Dado errado causa falha na habilitação automática | Fail point [N] |
-| **Cidadão** | Gov.br / CTPS Digital | Requerimento do SD | Normativo [N] |
-| **Gov.br** → F21 | Requerimento bloqueado | Conta gov.br inacessível | Fail point [N] |
-| **Cidadão** | URA 0800 via F18 | Demanda de concessão levada ao canal de pagamento | Fail point estrutural [N] |
-| **URA** | Atendente Caixa | Transbordo após menu (critério: em aberto) | Hipótese [I] |
-| **URA** | Sistema SD / MTE | Consulta de status do requerimento | Hipótese [I] |
-| **URA** | Base de elegibilidade | Consulta de identificação | Hipótese [I] |
-| **Atendente Caixa** → F9 | MTE / Gov.br | Redirecionamento sem prazo de demanda de concessão | Fail point [N/O] |
-| **Atendente Caixa** | Sistemas Caixa | Consulta de pagamento e histórico | Hipótese [I] |
-| **F13** → Cidadão | Recontato | Ausência de protocolo força nova ligação | Hipótese [A] |
-| **F3** → Cidadão | Recontato | Encerramento abrupto força nova ligação | Relato [A] |
-| **F8** → Cidadão | Recontato | Status divergente entre canais | Relato [A] |
-| **F17** → Gov.br | Recurso administrativo | Cidadão que descobre o recurso acessa gov.br (conta Prata/Ouro) | Normativo [N] |
-| **F19** → MTE/Agente pagador | Solicitação de reemissão | Parcela devolvida ao FAT; canal de reemissão em aberto | Normativo prazo [N]; canal [I] |
+### Pré-jornada e canais MTE
+
+| De | Para | Via | Tipo | Observação |
+|---|---|---|---|---|
+| **Empregador** | Empregador Web | Dados da rescisão (ICP-Brasil) certificado digital | Normativo [N] | Res. 957/2022; transmissão obrigatória |
+| **Empregador Web** | Base de elegibilidade (CNIS/eSocial/FGTS) | Alimentação de dados de vínculo e demissão | Normativo [N] | Critérios de elegibilidade alimentados |
+| **Empregador Web** → F0 | Habilitação bloqueada | Dado errado bloqueia habilitação automática | Fail point [N] | Erro antes do cidadão ligar |
+| **Cidadão** | Gov.br / CTPS Digital | Requerimento do SD (portal digital) | Normativo [N] | Res. 957/2022; canal principal |
+| **Cidadão** | SINE / SRTE / 158 | Requerimento presencial (exceção) | Normativo [N] | Para trabalhador sem acesso digital |
+| **Gov.br / CTPS Digital** | MTE (Sistema SD) | Processamento automático do requerimento | Normativo [N] | Via Dataprev |
+| **Gov.br** → F21 | Requerimento bloqueado | Conta gov.br inacessível ou nível insuficiente | Fail point [N] | Bloqueio antes da URA |
+| **MTE (Sistema SD)** | Gov.br → Cidadão | Notificação digital de deferimento/indeferimento/exigência | Normativo [N] | Res. 957/2022; válida após 5 dias |
+
+### Jornada na URA Caixa (E1-E7)
+
+| De | Para | Via | Tipo | Observação |
+|---|---|---|---|---|
+| **Cidadão** | URA 0800-726-0207 via F18 | Demanda de concessão levada ao canal de pagamento | Fail point estrutural [N] | Cidadão no canal errado; não resolve na URA |
+| **URA** | Base de elegibilidade | Consulta de identificação (PIS/NIS/CPF) | Hipótese [I] | Mecanismo exato da URA em aberto |
+| **URA** | Sistema SD / MTE | Consulta de status do requerimento e parcelas | Hipótese [I] | Retorna situação de bloqueio / deferimento |
+| **URA** | Sistemas Caixa (pagamento) | Consulta de saldo e histórico de créditos | Hipótese [I] | Disponibilidade de parcelas para saque |
+| **URA** | Atendente Caixa | Transbordo para atendimento humano | Hipótese [I] | Critério de transbordo em aberto (V3) |
+| **Atendente Caixa** | Sistemas Caixa (pagamento) | Consulta de histórico e movimentação de contas | Hipótese [I] | Suporte a demandas operacionais |
+| **Atendente Caixa** → F9 | MTE / Gov.br / 158 | Redirecionamento de demanda de concessão/recurso | Fail point [N/O] | Atendente não decide; cidadão redirecionado |
+
+### Pós-jornada (fail points e recontatos)
+
+| De | Para | Via | Tipo | Observação |
+|---|---|---|---|---|
+| **F13** → Cidadão | Recontato da URA / 0800 | Ausência de protocolo força nova ligação | Hipótese [A] | Retrabalho: cidadão liga novamente |
+| **F3** → Cidadão | Recontato da URA / 0800 | Encerramento abrupto força nova ligação | Relato [A] | Retrabalho: cidadão redisca |
+| **F8** → Cidadão | Recontato da URA / 0800 / App / Gov.br | Status divergente entre canais gera dúvida | Relato [A] | Retrabalho: busca confirmação |
+| **Cidadão** → **Gov.br (F17)** | Recurso administrativo (120 dias) | Contestação de indeferimento/montante/suspensão/cancelamento | Normativo [N] | Exige conta gov.br Prata ou Ouro |
+| **Cidadão** → **MTE / Agente pagador (F19)** | Solicitação de reemissão de parcela | Parcela devolvida ao FAT após 67 dias; canal de solicitação em aberto | Normativo prazo [N]; canal [I] | Reemissão possível até 2 anos |
+| **Cidadão** → **0800-726-2492 (F14)** | Canal acessível PcD auditiva/fala | Atendimento especializado para pessoas com deficiência | Oficial [O] | Escopo para SD não verificado [I] |
 
 ---
 
