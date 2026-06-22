@@ -1,6 +1,31 @@
 # Diagrama AS-IS — Atendimento ao Seguro-Desemprego pela URA da Caixa Econômica Federal
 
-> **Leitura:** Setas sólidas `-->` = fluxo principal entre atores/etapas. Setas tracejadas `-.->` = consultas a sistemas de suporte. Nós vermelhos ⚡ = fail points críticos [N/O]. Nós laranja 〰 = fail points hipotéticos [A/I]. Todos os nós têm ao menos uma seta de entrada e uma de saída — fail points se conectam à consequência que causam (abandono, bloqueio ou redirecionamento).
+## Legenda de Leitura
+
+### Tipos de Setas (Relações entre Atores)
+
+| Símbolo | Significado | Exemplo |
+|---------|-----------|---------|
+| `A --> B` | Fluxo principal: ator A envia ou realiza ação para ator B | Cidadão → URA (ligação) |
+| `A --> \|rótulo\| B` | Fluxo rotulado com descrição da ação/transferência | Atendente → MTE (redirecionamento) |
+| `A -.-> B` | Consulta/integração: ator A consulta sistema B (invisível ao cidadão) | URA → Sistema SD (busca status) |
+| `A --> F(fail)` | Fluxo que resulta em fail point | URA → F1 (loop sem saída) |
+| `F(fail) --> ABAND` | Fail point que leva a abandono ou bloqueio | F4b → Abandono |
+
+### Cores e Simbolos dos Nós
+
+| Nó | Significado | Tipo |
+|-----|----------|------|
+| ⚡ `F0–F9, F17–F24` | Fail points críticos com evidência [N] ou [O] | Decisões normativas/oficiais |
+| 〰 `F1–F4b, F6–F8, F11, F13–F15` | Fail points hipotéticos com evidência [A] ou [I] | Relatos/inferências requer validação |
+| 🔴 `BLOQ_HAB`, `ABAND` | Estados bloqueados ou de encerramento | Consequência negativa |
+| ✅ `RESOL` | Resolução bem-sucedida | Consequência positiva |
+| 🏛️ `MTE_ORG` | Ator institucional: MTE / Gov.br / 158 / CTPS Digital / SINE-Fácil | Canais alternativos corretos |
+
+### Estrutura do Fluxo
+
+O diagrama segue a sequência temporal: E0 (pré-jornada) → E1 (decide ligar) → E2–E7 (jornada na URA/atendimento) → ENC (encerramento + fail points pós-jornada).
+
 > **Fonte:** C_blueprint_asis.md · B_relatorio_assistente_v3.md · C_mapa_atores.md
 
 ---
