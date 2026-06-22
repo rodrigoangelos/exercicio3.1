@@ -1,8 +1,22 @@
 Auditoria rigorosa da pesquisa
 
-Conclusão geral: a pesquisa tem utilidade como hipótese inicial de blueprint, mas mistura fatos oficiais, inferências operacionais não verificadas, relatos anedóticos e normas desatualizadas como se tivessem o mesmo grau probatório. O principal problema é que ela descreve um fluxo detalhado de URA, submenu, autenticação, filas, backstage e tratamento de exceções sem evidência pública suficiente para sustentar esse nível de granularidade.
+**Resumo Executivo — Falhas Reais Identificadas**
 
-Abaixo estão as falhas substantivas identificadas.
+A auditoria identifica **erros factuais genuínos** na pesquisa v1:
+
+1. **ERRO FACTUAL 1.1**: Canal 111 descrito como acesso a Seguro-Desemprego — fonte oficial Caixa lista 111 como "Atendimento Bolsa Família", NOT Seguro-Desemprego. ✗ Falha factual confirmada.
+
+2. **ERRO FACTUAL 1.2**: "App Caixa Trabalhador" está descrito com nome desatualizado — aplicativo correto é "App Benefícios Sociais CAIXA" conforme fontes atuais da Caixa (2025+). ✗ Falha factual confirmada.
+
+3. **ERRO FACTUAL 1.9**: Decreto nº 2.284/1997 citado como regulamento do Seguro-Desemprego — o MTE informa que foi regulamentado pelo Decreto nº 92.608, de 30 de abril de 1986, não 1997. ✗ Falha factual confirmada.
+
+Estas três falhas são **erros de fato** (não opinião ou interpretação) que alteram o entendimento correto do serviço.
+
+---
+
+Conclusão geral: a pesquisa tem utilidade como hipótese inicial de blueprint, mas contém erros factuais que devem ser corrigidos (acima), e mistura fatos oficiais, inferências operacionais não verificadas, relatos anedóticos e normas desatualizadas como se tivessem o mesmo grau probatório. O principal problema estrutural é que ela descreve um fluxo detalhado de URA, submenu, autenticação, filas, backstage e tratamento de exceções sem evidência pública suficiente para sustentar esse nível de granularidade.
+
+Abaixo estão as falhas substantivas identificadas (incluindo os 3 erros factuais acima e críticas metodológicas).
 
 ⸻
 
