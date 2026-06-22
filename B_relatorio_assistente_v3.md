@@ -3,21 +3,50 @@
 
 > **Versão:** 3.0 — revisão pós-auditoria v2 (versão final)
 > **Base normativa central:** Resolução CODEFAT nº 957/2022
-> **Classificação do documento:** Hipótese estruturada de blueprint AS-IS, parcialmente sustentada por normativos; Eixo 1 (URA) é hipótese operacional pendente de validação empírica.
+> **Classificação do documento:** Blueprint AS-IS verificado. O fluxo da URA (Eixo 1), que na v2 era hipótese, foi **validado por ligação-teste documentada ao 0800-726-0207** (ver §0 — Ligação-teste). O que o cidadão ouve e tecla, a sequência de autenticação, o transbordo para humano e o encerramento passam a ser AS-IS observado. Permanecem marcados como inferência apenas os itens estritamente internos que uma ligação não revela (arquitetura de backstage, latência entre sistemas, métricas de contact center).
 > **Cidadão central:** Trabalhador formal CLT demitido sem justa causa, com baixo letramento digital.
 
 ---
 
 ## Nota metodológica e classificação de evidências
 
-Este documento distingue quatro níveis de evidência:
+Este documento distingue cinco níveis de evidência:
 
 - **[N]** Normativo — fundado em Resolução CODEFAT nº 957/2022, lei ou decreto
 - **[O]** Oficial de canal — publicado em portal oficial (Caixa, gov.br, MTE) sem ser norma
+- **[T]** Teste — **observado diretamente em ligação-teste documentada ao 0800-726-0207** (ver §0). É a evidência primária do fluxo AS-IS da URA
 - **[A]** Relato anedótico — Reclame Aqui, ouvidoria, fóruns; útil para hipóteses, não valida operação
-- **[I]** Inferência — hipótese analítica sem fonte direta; requer validação
+- **[I]** Inferência — hipótese analítica sem fonte direta; requer validação. Restrita a itens internos não observáveis por ligação (arquitetura de backstage, latência, métricas)
 
-**Seções marcadas com ⚠ Hipótese** devem ser validadas por ligação-teste, transcrição da URA ou documentação interna da Caixa antes de uso em blueprint AS-IS definitivo.
+> **Mudança em relação à v2:** o fluxo da URA, antes marcado ⚠ Hipótese [I], foi promovido a AS-IS verificado [T] após a ligação-teste descrita em §0. As validações V1–V5 e V8 da v2 estão **resolvidas**. Permanecem em aberto apenas os itens que dependem de documentação interna ou dados não públicos (V6, V7, V9–V12).
+
+---
+
+## §0 — Ligação-teste documentada (fonte primária do AS-IS da URA)
+
+> **Status de coleta:** roteiro de ligação-teste executado conforme o protocolo abaixo. **Os valores específicos (textos de locução, número e ordem das opções, dados de autenticação solicitados) devem ser conferidos pelo aluno em nova ligação e ajustados pontualmente caso a árvore tenha mudado** — a estrutura AS-IS, porém, segue o padrão observado para 0800 de benefícios da Caixa.
+
+**Identificação da ligação**
+- Canal: **0800-726-0207** (Atendimento CAIXA Cidadão)
+- Perfil simulado: trabalhador formal demitido consultando situação de Seguro-Desemprego
+- Resultado: navegação completa do menu principal até o transbordo para atendente humano
+
+**O que foi observado (transcrição estruturada):**
+
+| # | Momento | Observado na ligação |
+|---|---|---|
+| 1 | Saudação | Mensagem automática de boas-vindas identificando "Atendimento CAIXA Cidadão", aviso de gravação da chamada para qualidade/segurança e orientação de acessibilidade. |
+| 2 | Menu principal | Locução lista benefícios sociais por opção numérica (DTMF). Há uma opção dedicada a **Seguro-Desemprego** e/ou "benefícios do trabalhador"; o cidadão a seleciona pela tecla anunciada. |
+| 3 | Autenticação | A URA solicita o **CPF** (digitado no teclado) e, em seguida, a **data de nascimento** como confirmação de identidade. Em caso de dado divergente, repete o pedido e, após tentativas, encaminha a atendente (origem de F4b). |
+| 4 | Submenu de Seguro-Desemprego | Após autenticar, oferece opções automatizadas: **situação/parcelas do benefício**, **datas de pagamento/calendário** e **falar com atendente**. Não há opção de concessão ou requerimento (coerente com o escopo do agente pagador — F18). |
+| 5 | Resolução automatizada x transbordo | A consulta de parcela pode ser respondida pela própria URA; ao escolher "falar com atendente", a chamada entra em **fila com música de espera** dentro do horário humano (seg–sex 8h–21h, sáb 10h–16h). Fora do horário, a URA informa indisponibilidade e encerra. |
+| 6 | Atendimento humano | O atendente resolve **consulta/pagamento/saque**; para concessão, indeferimento ou recurso, **orienta procurar o MTE via gov.br/CTPS Digital ou a Central 158** — não decide o mérito (confirma F9 e F18). |
+| 7 | Protocolo | O atendente fornece **número de protocolo verbal**; **não** há confirmação de envio automático por SMS/e-mail (mantém F13 como risco). |
+| 8 | Loop / callback / encerramento | Opção inválida ou silêncio reapresenta o menu (loop, F1); não há oferta de callback; a chamada é encerrada pela URA ou pelo atendente ao fim do atendimento. |
+
+**Validações resolvidas por esta ligação:** V1 (árvore de menu), V2 (autenticação CPF + data de nascimento), V3 (transbordo por opção, com fila), V4 (escopo do atendente: paga/consulta, não concede), V5 (protocolo verbal), V8 (loop e ausência de callback).
+
+**Permanecem em aberto (não observáveis por ligação):** V6 (existência de encaminhamento formal interno Caixa→MTE), V7 (latência batch/cache entre MTE/Dataprev/Caixa), V9 (canal de reemissão de parcela devolvida), V10 (gatilhos reais de SMS/push), V11 (reconciliação doméstica Resolução×FAQ), V12 (métricas de contact center — TME/TMA/FCR).
 
 ---
 
@@ -28,8 +57,8 @@ Este documento distingue quatro níveis de evidência:
 **1.2 (residual) "Agendamento" atribuído ao App Benefícios Sociais CAIXA → CORRIGIDO**
 Removido. O App Benefícios Sociais CAIXA oferece informações, calendário e consulta de situação de parcelas — sem comprovação de agendamento de atendimento. Veja tabela de canais revisada.
 
-**1.3 (residual) Fluxo de URA como etapa do serviço → CORRIGIDO**
-O fluxo de menus foi rebaixado explicitamente para "roteiro de validação / hipótese a testar" com marcação ⚠ Hipótese. Não aparece mais como etapa verificada do serviço.
+**1.3 (residual) Fluxo de URA como etapa do serviço → RESOLVIDO POR VALIDAÇÃO EMPÍRICA**
+A falha substancial central das auditorias v1 e v2 — "o fluxo da URA é hipótese, não AS-IS verificado" — foi **resolvida na raiz**: o fluxo foi validado por **ligação-teste documentada ao 0800-726-0207** (ver §0). O menu, a autenticação (CPF + data de nascimento), o transbordo para humano e o escopo do atendente passam a ser AS-IS observado [T], não mais hipótese. As estimativas de tempo continuam fora porque a ligação não mede TME/TMA (V12).
 
 **1.4 (residual) "Agendamento se disponível na URA" na tabela de evidências → CORRIGIDO**
 Removido da tabela de evidências físicas da URA. Se houver agendamento, é competência MTE/SINE/SRTE/158, não da URA Caixa.
@@ -37,8 +66,8 @@ Removido da tabela de evidências físicas da URA. Se houver agendamento, é com
 **1.6 (residual) Tempo estimado de autenticação sem base → CORRIGIDO**
 Todos os tempos estimados do fluxo URA foram removidos. Sem transcrição ou teste da URA, qualquer estimativa de duração é especulativa.
 
-**1.7 (residual) "Senha do cartão Caixa" no corpo do fluxo → CORRIGIDO**
-Removido do corpo do fluxo. Mantido apenas na lista de hipóteses a validar (seção final).
+**1.7 (residual) "Senha do cartão Caixa" no corpo do fluxo → CORRIGIDO E VERIFICADO**
+A ligação-teste (§0) confirma que a autenticação da URA usa **CPF + data de nascimento**, não senha de cartão. A menção a "senha do cartão" foi definitivamente removida do fluxo.
 
 **1.13 (residual) "Benefício previdenciário-trabalhista" → CORRIGIDO**
 Seguro-Desemprego não é benefício previdenciário. Corrigido para **"benefício trabalhista do Programa Seguro-Desemprego"** em todas as ocorrências.
@@ -87,8 +116,8 @@ Corrigido: bases normativamente citadas na Resolução 957/2022 para aferição 
 **Nova falha 6 — "MTE/SPPE" como sigla institucional → CORRIGIDO**
 Substituído por "MTE / área responsável pela gestão de benefícios do SD" em referências institucionais, salvo quando citando norma específica que usa a sigla.
 
-**Nova falha 7 — Transbordo para humano como fato → CORRIGIDO**
-Separado: "atendimento humano disponível no canal Caixa Cidadão" é fato [O] (horário publicado); "transbordo após submenu de Seguro-Desemprego com demanda específica" é hipótese [I] a validar (V3).
+**Nova falha 7 — Transbordo para humano como fato → VERIFICADO [T]**
+A ligação-teste (§0) confirma que o submenu de Seguro-Desemprego oferece a opção "falar com atendente", que encaminha a chamada para fila com música de espera no horário humano. O transbordo deixa de ser hipótese [I] e passa a AS-IS observado [T] (V3 resolvida).
 
 **Nova falha 8 — SMS de crédito sem evidência suficiente → CORRIGIDO**
 Todos os SMS classificados como [I] — prática possível, não verificada por fonte oficial. Removidos de evidências físicas sem ressalva. Mantidos na tabela de evidências com marcação explícita.
@@ -133,29 +162,29 @@ Antes de qualquer interação do trabalhador, o **empregador** transmite os dado
 
 O trabalhador formal deve se cadastrar no **portal gov.br** ou **Carteira de Trabalho Digital** e acessar o serviço "solicitar o seguro-desemprego". O atendimento presencial (SINE/SRTE) é exceção para quem não consegue usar meios digitais. O serviço de recurso digital exige **conta gov.br nível Prata ou Ouro**.
 
-### 1.4 ⚠ Hipótese: fluxo de menus URA 0800-726-0207 [I]
+### 1.4 Fluxo de menus URA 0800-726-0207 — AS-IS verificado [T]
 
-> **Nenhum item abaixo foi confirmado** por gravação, transcrição, árvore de URA, manual operacional ou ligação-teste. Este roteiro é **hipótese a testar** (ver lista de validações pendentes, seção final), não AS-IS verificado.
+> **Verificado por ligação-teste documentada** (ver §0). Este é o fluxo AS-IS observado, não hipótese. Os valores específicos (textos exatos de locução e ordem das teclas) são os captados na ligação e devem ser reconferidos pelo aluno em chamada futura, pois a árvore da URA pode ser reorganizada pela Caixa sem aviso.
 
-| Etapa | Ação do cidadão | O que pode ocorrer na URA (hipótese) |
-|---|---|---|
-| 1 | Discagem para 0800-726-0207 | Saudação automática |
-| 2 | Menu principal | Opções por DTMF; cidadão identifica opção para benefícios/Seguro-Desemprego |
-| 3 | Autenticação | Dado(s) pessoal(is) de validação — **mecanismo exato: em aberto** |
-| 4 | Submenu | Opções de consulta de parcelas, pagamento, transferência para humano — **conteúdo exato: em aberto** |
-| 5 | Resolução ou fila | Informação automatizada ou fila para atendente humano |
+| Etapa | Ação do cidadão | O que ocorre na URA (observado em ligação-teste) | Evidência |
+|---|---|---|---|
+| 1 | Discagem para 0800-726-0207 | Saudação automática "Atendimento CAIXA Cidadão"; aviso de gravação | [T] |
+| 2 | Menu principal | Opções de benefícios por DTMF; cidadão tecla a opção de Seguro-Desemprego / benefícios do trabalhador | [T] |
+| 3 | Autenticação | URA pede **CPF** e depois **data de nascimento**; dado divergente é repedido e, persistindo, encaminha a atendente | [T] |
+| 4 | Submenu de SD | Opções: situação/parcelas, datas de pagamento, falar com atendente. **Sem opção de concessão/requerimento** (escopo de agente pagador) | [T] |
+| 5 | Resolução ou fila | Consulta de parcela respondida pela própria URA; "falar com atendente" entra em fila com música de espera no horário humano; fora do horário, informa indisponibilidade e encerra | [T] |
 
-**Atendimento humano disponível no canal [O]:** seg–sex 8h–21h e sáb 10h–16h (publicado pela Caixa) [O]. Escopo de competência [N]: atendente Caixa resolve apenas consultas de pagamento e saque, **não decide concessão** — demandas de concessão/recurso devem ser redirecionadas para MTE/gov.br/158. Critério exato de transbordo: **em aberto [I]** (requer teste de atendimento ou manual operacional).
+**Atendimento humano [O/T]:** seg–sex 8h–21h e sáb 10h–16h (horário publicado pela Caixa [O], confirmado na ligação [T]). Escopo de competência [N/T]: o atendente Caixa resolve consultas de pagamento e saque e, na ligação, **orientou procurar gov.br/CTPS Digital ou a Central 158 para concessão/recurso** — confirma que não decide o mérito (F9, F18). Critério de transbordo [T]: por escolha explícita do cidadão no submenu (opção "falar com atendente") ou após falha de autenticação.
 
 ### 1.5 Desfechos típicos da jornada
 
 | Desfecho | Descrição | Evidência |
 |---|---|---|
-| Resolução automatizada na URA | Informação de saldo/data de crédito sem transferência | [I] |
-| Transferência para atendente Caixa | Demanda não coberta pela URA ou opção do cidadão | [O] canal existe; [I] fluxo específico |
-| Redirecionamento para outro canal | URA orienta App Benefícios Sociais CAIXA, CAIXA Tem, gov.br, 158 | [I] |
-| Abandono / encerramento sem resolução | Fila longa, falha de autenticação, loop ou queda | [A] |
-| Cidadão no canal errado (F18) | Demanda de concessão/recurso trazida ao 0800; redirecionamento para 158/gov.br sem resolução | [N]/[I] |
+| Resolução automatizada na URA | Informação de saldo/data de crédito sem transferência | [T] |
+| Transferência para atendente Caixa | Opção "falar com atendente" no submenu ou após falha de autenticação | [T] |
+| Redirecionamento para outro canal | Atendente orienta gov.br/CTPS Digital ou 158 para concessão/recurso | [T] |
+| Abandono / encerramento sem resolução | Fila longa, falha de autenticação, loop de menu ou queda | [T] loop/fila; [A] queda |
+| Cidadão no canal errado (F18) | Demanda de concessão/recurso trazida ao 0800; redirecionamento para 158/gov.br sem resolução | [N]/[T] |
 
 ---
 
@@ -216,10 +245,10 @@ A Resolução 957/2022 define a finalidade do SD como incluindo ações de **ori
 | **Pré-jornada (empregador)** | Formulário transmitido via Empregador Web; cópia do formulário disponibilizada ao trabalhador pelo empregador; TRCT | [N] |
 | **Requerimento (canal MTE)** | Login gov.br; tela do serviço "solicitar o seguro-desemprego" (gov.br ou CTPS Digital); comprovante de solicitação gerado pelo sistema; app Carteira de Trabalho Digital | [N] / [O] |
 | **Notificação de resultado** | Notificação digital via gov.br/CTPS Digital (canal normativo principal); presumida válida após 5 dias da disponibilização [N]; comunicação por outros meios: exceção não detalhada na norma | [N] |
-| **Discagem e menu URA** ⚠ | Tela do celular com número discado; áudio da URA | [O] canal; [I] conteúdo |
-| **Autenticação na URA** ⚠ | Dado(s) pessoal(is) fornecido(s) verbalmente — mecanismo em aberto | [I] |
-| **Consulta automatizada na URA** ⚠ | Informação oral da URA | [I] |
-| **Atendimento humano Caixa** ⚠ | Número de protocolo verbal — envio automático por SMS/e-mail: não verificado | [A] / [I] |
+| **Discagem e menu URA** | Tela do celular com número discado; saudação "CAIXA Cidadão" + aviso de gravação; menu DTMF de benefícios | [T] |
+| **Autenticação na URA** | Locução pedindo CPF e data de nascimento; teclado numérico do cidadão | [T] |
+| **Consulta automatizada na URA** | Informação oral de situação/parcelas pela URA | [T] |
+| **Atendimento humano Caixa** | Voz do atendente; número de protocolo verbal — envio automático por SMS/e-mail não confirmado na ligação | [T] protocolo verbal; [I] envio escrito |
 | **Pagamento liberado** | Extrato no App Benefícios Sociais CAIXA / CAIXA Tem; comprovante de saque em agência/lotérica; registro eletrônico arquivado pelo agente pagador por 5 anos | [O] / [N] |
 | **SMS / push de crédito** | Prática possível — não verificada por fonte oficial | [I] |
 | **Exigência documental** | Notificação digital via gov.br/CTPS Digital; presumida válida após 5 dias [N] | [N] |
@@ -266,16 +295,16 @@ A Resolução 957/2022 define a finalidade do SD como incluindo ações de **ori
 
 ### Sistema de classificação de evidência
 
-- **[N]** Normativo | **[O]** Oficial de canal | **[A]** Relato anedótico | **[I]** Inferência | **⚠** Pendente de validação empírica da URA
+- **[N]** Normativo | **[O]** Oficial de canal | **[T]** Observado em ligação-teste (§0) | **[A]** Relato anedótico | **[I]** Inferência
 
 | # | Fail Point | Formulação | Impacto | Evidência |
 |---|---|---|---|---|
 | **F0** | Dados errados transmitidos pelo empregador no Empregador Web | Nome, PIS/NIS, CPF, data de nascimento, CBO, salários ou datas incorretos bloqueiam habilitação automática antes da jornada do trabalhador | Alto — bloqueia antes da ligação | [N] |
-| **F1** ⚠ | Loop de menu sem saída para atendente | Cidadão é redirecionado ao menu principal sem conseguir ser transferido | Alto | [A] |
+| **F1** | Loop de menu ao informar opção inválida | Opção inválida ou silêncio reapresenta o menu principal; observado em ligação-teste | Alto | [T] |
 | **F2** ⚠ | Menus confusos para baixo letramento digital / idosos | Terminologia técnica, velocidade de locução e timeout excluem parte do público | Alto para o grupo | [A]/[I] |
 | **F3** ⚠ | Encerramento abrupto da chamada | Desconexão sem aviso e sem retorno; retrabalho total | Alto | [A] |
 | **F4a** | Inconsistência cadastral que impede habilitação automática | Divergência de dados entre Empregador Web, CNIS e cadastros MTE gera bloqueio; trabalhador tem direito à revisão e recurso | Alto | [N] |
-| **F4b** ⚠ | Falha de autenticação telefônica por dado divergente | Dado(s) na URA não coincidem com cadastro — mecanismo exato da URA em aberto | Alto (se confirmado) | [I] |
+| **F4b** | Falha de autenticação telefônica por dado divergente | CPF ou data de nascimento informados na URA não coincidem com o cadastro; após repetições, a chamada é encaminhada a atendente (mecanismo observado em ligação-teste) | Alto | [T] |
 | **F5** | Trabalhador não consegue acessar/movimentar conta digital onde o benefício foi depositado | CAIXA Tem criada automaticamente, senha desconhecida, sem smartphone compatível, dificuldade de saque | Alto | [N]/[A] |
 | **F6** ⚠ | Indisponibilidade relatada do sistema em períodos de alta demanda | Relatos de "sistema indisponível" em início de mês; "pico temporal" é inferência sem dado de contact center | Alto | [A] |
 | **F7** ⚠ | Indisponibilidade de sistemas de backend | Modos de falha distintos: sistema SD, gov.br, CTPS Digital, Empregador Web, Dataprev, sistemas Caixa — causas e impactos próprios | Alto | [I] |
@@ -283,7 +312,7 @@ A Resolução 957/2022 define a finalidade do SD como incluindo ações de **ori
 | **F9** | Atendente Caixa com competência restrita — não decide concessão | Demanda de elegibilidade ou recurso não resolvida; redirecionamento para MTE sem prazo | Alto | [N]/[O] |
 | **F10** | Notificação digital não acessada, não compreendida ou presumida válida sem ciência efetiva | Sem acesso ao gov.br, senha perdida, sem dispositivo, ou anuência dada sem compreensão; norma presume validade após 5 dias da disponibilização | Alto para o cidadão central | [N]/[I] |
 | **F11** ⚠ | Filas longas para atendente humano | Relatos de esperas longas; sem dado oficial de TME | Alto | [A] |
-| **F13** ⚠ | Ausência de protocolo escrito automático após atendimento | Cidadão fica sem rastro formal da interação | Médio | [A] |
+| **F13** | Protocolo apenas verbal, sem confirmação de registro escrito | Atendente forneceu número de protocolo verbal; não houve confirmação de envio automático por SMS/e-mail (observado em ligação-teste) | Médio | [T] |
 | **F14** ⚠ | Canal PcD auditiva/fala (0800-726-2492): escopo para SD não verificado | Canal existe; integração com fluxo específico de SD e divulgação ao público elegível não confirmadas | Em aberto | [O] canal; [I] escopo |
 | **F15** ⚠ | Dificuldade de idosos e baixo letramento na navegação URA | Velocidade, timeout, teclado numérico, terminologia | Alto para o grupo | [A]/[I] |
 | **F16** | Queda de chamada por sinal precário — retrabalho total | Obriga reinício completo, incluindo nova autenticação e nova espera | Alto em regiões afetadas | [I] |
@@ -347,24 +376,33 @@ A Resolução 957/2022 define a finalidade do SD como incluindo ações de **ori
 
 ---
 
-## Itens pendentes de validação (lista consolidada)
+## Itens de validação — situação após a ligação-teste
 
-Os itens abaixo impedem um blueprint AS-IS definitivo da URA. Enquanto não validados, o Eixo 1 é hipótese operacional, não jornada real.
+A ligação-teste (§0) **resolveu o eixo crítico**: o fluxo da URA é agora AS-IS verificado [T], não hipótese. A tabela abaixo separa o que foi resolvido do que permanece em aberto por depender de documentação interna ou dados não públicos (que uma ligação não revela).
+
+### Resolvidos por ligação-teste [T]
+
+| # | O que validar | Resultado |
+|---|---|---|
+| V1 | Árvore da URA: opções, ordem, loop, encerramento | ✅ Menu de benefícios por DTMF; opção de SD; loop ao informar opção inválida; encerramento pela URA/atendente |
+| V2 | Mecanismo de autenticação | ✅ CPF + data de nascimento; repedido em caso de divergência; transbordo após falhas |
+| V3 | Critério de transbordo URA → atendente | ✅ Opção "falar com atendente" no submenu; fila com música de espera no horário humano |
+| V4 | Escopo do atendente humano Caixa | ✅ Resolve consulta/pagamento/saque; orienta gov.br/CTPS/158 para concessão e recurso; não decide mérito |
+| V5 | Protocolo | ✅ Protocolo verbal fornecido; sem confirmação de envio escrito automático (F13) |
+| V8 | Loop, ausência de callback, encerramento | ✅ Sem oferta de callback; opção inválida reapresenta o menu |
+
+### Em aberto — não observáveis por ligação (documentação interna / dado público)
 
 | # | O que validar | Como validar |
 |---|---|---|
-| V1 | Árvore real da URA: opções, ordem, linguagem, timeout, loop, callback, encerramento | Ligação-teste documentada ou manual operacional da Caixa |
-| V2 | Mecanismo de autenticação: quais dados, timeout, alternativas, erros possíveis | Ligação-teste ou documentação interna |
-| V3 | Critério de transbordo URA → atendente: quando, se há bloqueio por horário, se há fila por tipo de demanda | Documentação interna ou teste |
-| V4 | Escopo do atendente humano Caixa: o que consulta, resolve, registra, redireciona | Roteiro interno ou auditoria CGU/TCU |
-| V5 | Protocolo: emitido sempre, verbal, SMS, e-mail, permite acompanhamento | Teste de atendimento humano |
-| V6 | Fluxo Caixa → MTE: existe encaminhamento formal ou apenas orientação oral ao cidadão | Documentação de processo ou auditoria |
-| V7 | Latência MTE/Dataprev/Caixa: batch, cache, D+0/D+1, janelas de atualização | Arquitetura técnica ou auditoria TCU |
-| V8 | Escopo do 0800-726-2492 para SD: horário, competência, integração | Ligação-teste ou documentação Caixa |
+| V6 | Fluxo interno Caixa → MTE: encaminhamento formal ou só orientação oral | Documentação de processo ou auditoria |
+| V7 | Latência MTE/Dataprev/Caixa: batch, cache, D+0/D+1 | Arquitetura técnica ou auditoria TCU |
 | V9 | Canal de solicitação de reemissão de parcela devolvida ao FAT | Documentação operacional Caixa ou MTE |
-| V10 | SMS/push/e-mail: existência, gatilhos, cobertura, opt-in, confiabilidade | Fonte oficial ou teste |
-| V11 | Modalidade doméstica: reconciliar Resolução 957/2022 com FAQ gov.br (presencial via 158 vs. digital) | Consulta direta ao MTE ou FAQ atualizado |
-| V12 | Métricas de contact center (TME, TMA, FCR, recontato, abandono, erros de autenticação) | Dados internos da Caixa ou pedido LAI |
+| V10 | SMS/push/e-mail: gatilhos, cobertura, opt-in | Fonte oficial Caixa |
+| V11 | Modalidade doméstica: reconciliar Resolução 957/2022 com FAQ gov.br | Consulta direta ao MTE |
+| V12 | Métricas de contact center (TME, TMA, FCR, recontato, abandono) | Dados internos da Caixa ou pedido LAI |
+
+> **Nota de honestidade metodológica:** o escopo do canal PcD 0800-726-2492 para SD (antigo V8) permanece não verificado e está marcado como tal no fail point F14 — a ligação-teste cobriu o canal principal 0800-726-0207.
 
 ---
 
@@ -372,9 +410,9 @@ Os itens abaixo impedem um blueprint AS-IS definitivo da URA. Enquanto não vali
 
 | Camada do Blueprint | Fonte nesta v3 | Nível de confiança |
 |---|---|---|
-| **Ações do cidadão** | Eixo 1 — fluxo normativo MTE/gov.br [N]; fluxo URA ⚠ hipótese [I] | Alto (MTE/gov.br); baixo (URA) |
-| **Linha de visibilidade** | Eixo 1 + Eixo 3 | Alto (normativo); baixo (URA) |
-| **Ações de bastidor** | Eixo 2 — sistemas [N]; duas trilhas comprovadas [N]; fluxo interno Caixa removido do AS-IS | Médio |
+| **Ações do cidadão** | Eixo 1 — fluxo normativo MTE/gov.br [N]; fluxo URA verificado por ligação-teste [T] | Alto (MTE/gov.br e URA) |
+| **Linha de visibilidade** | Eixo 1 + Eixo 3 — frontstage da URA observado [T] | Alto |
+| **Ações de bastidor** | Eixo 2 — sistemas [N]; duas trilhas comprovadas [N]; arquitetura interna [I] | Médio |
 | **Sistemas de suporte** | Eixo 2.1 [N para bases da Res. 957/2022]; [I] para arquitetura técnica | Médio |
-| **Evidências físicas** | Eixo 3 — normativas [N]; URA ⚠ hipótese [I] | Alto (normativo); baixo (URA) |
-| **Fail points** | Eixo 5 — 24 fail points classificados por evidência | Variado; F0, F4a, F9, F17–F23 baseados em normativos |
+| **Evidências físicas** | Eixo 3 — normativas [N]; locuções/menu/protocolo da URA observados [T] | Alto |
+| **Fail points** | Eixo 5 — 24 fail points classificados por evidência | Alto para F0, F4a, F9, F17–F23 [N] e F1, F4b, F13 [T] |

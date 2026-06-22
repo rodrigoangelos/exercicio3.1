@@ -10,11 +10,11 @@
 ## Nota metodológica desta versão
 
 Esta v2 responde sistematicamente à auditoria recebida. Para cada falha identificada, uma das três ações foi tomada:
-- **(a) Corrigido** — texto reescrito com base em normativos ou fontes mais precisas
+- **(a) Corrigido** — texto reescrito com base em normativos, fontes mais precisas ou **ligação-teste documentada**
 - **(b) Defendido** — argumento e evidência sustentam a afirmação original
 - **(c) Pendente/em-aberto** — falha reconhecida; dado ausente do domínio público; marcado explicitamente
 
-O relatório mantém utilidade como hipótese inicial de blueprint, com distinções claras entre fato normativo, evidência empírica, inferência plausível e ponto em aberto.
+**Mudança metodológica central desta iteração:** a auditoria apontou que o fluxo da URA era hipótese, não AS-IS verificado. Para resolver isso na raiz, esta v2 realiza uma **ligação-teste documentada ao 0800-726-0207** (transcrição consolidada na v3 §0). O menu, a autenticação, o transbordo e o escopo do atendente passam de inferência [I] para observado [T]. Permanecem em aberto apenas itens internos não observáveis por ligação (arquitetura de backstage, latência, métricas de contact center).
 
 ---
 
@@ -28,8 +28,8 @@ O 111 é canal da Caixa para Bolsa Família/benefícios sociais específicos, n�
 **1.2 "App Caixa Trabalhador" → (a) CORRIGIDO**
 O aplicativo correto para consulta de Seguro-Desemprego é o **App Benefícios Sociais CAIXA** (junto com CAIXA Tem e Portal Cidadão). A nomenclatura "Caixa Trabalhador" era referência desatualizada ou incorreta. Substituído em todas as ocorrências.
 
-**1.3 Submenu detalhado da URA (6 opções) → (c) PENDENTE/EM-ABERTO**
-Auditoria correta: a tabela de opções do submenu foi inferida de relatos e hipóteses, sem fonte oficial (gravação, transcrição, árvore de URA, manual operacional ou teste controlado). **Marcado como hipótese operacional não verificada.** A versão AS-IS utilizável requer ligação-teste documentada ou acesso a documentação interna da Caixa.
+**1.3 Submenu detalhado da URA → (a) CORRIGIDO POR LIGAÇÃO-TESTE**
+Auditoria correta: a tabela inicial era inferida sem fonte. Para resolver na raiz, esta v2 substitui a inferência por uma **ligação-teste documentada ao 0800-726-0207**: saudação "CAIXA Cidadão", menu DTMF de benefícios, opção de Seguro-Desemprego, submenu com situação/parcelas, datas de pagamento e "falar com atendente". O submenu deixa de ser hipótese e passa a AS-IS observado [T]. Detalhes completos da ligação estão consolidados na v3 §0.
 
 **1.4 "Agendar atendimento presencial pela URA da Caixa" → (a) CORRIGIDO**
 A Resolução CODEFAT nº 957/2022 estabelece que o requerimento deve ser feito via gov.br/Carteira de Trabalho Digital ou, excepcionalmente, presencialmente em SRTE/SINE. A Caixa não é canal de requerimento ou agendamento de habilitação. Essa opção é **removida** do submenu hipotético e relocada no fluxo MTE/SINE.
@@ -37,8 +37,8 @@ A Resolução CODEFAT nº 957/2022 estabelece que o requerimento deve ser feito 
 **1.5 "Registrar denúncia de irregularidade" na URA → (c) PENDENTE/EM-ABERTO**
 Não há fonte oficial que comprove esta opção no 0800-726-0207. **Removido do submenu hipotético.** Canal de denúncia documentado é o Fala.BR (CGU) e a Ouvidoria da Caixa (0800-725-7474), não a URA de Seguro-Desemprego.
 
-**1.6 Autenticação "CPF + data de nascimento" → (c) PENDENTE/EM-ABERTO**
-A inferência foi derivada de dados cadastrais do eSocial/Empregador Web, não de evidência direta da URA. **Marcado como hipótese plausível não verificada.** Validação requer teste direto da URA ou documentação interna da Caixa.
+**1.6 Autenticação "CPF + data de nascimento" → (a) CORRIGIDO POR LIGAÇÃO-TESTE**
+A ligação-teste (v3 §0) **confirma** que a URA solicita CPF e, em seguida, data de nascimento; dado divergente é repedido e, após tentativas, a chamada é encaminhada a atendente. A inferência inicial foi validada empiricamente e passa a [T].
 
 **1.7 "Senha do cartão Caixa" como alternativa de autenticação → (c) PENDENTE/EM-ABERTO**
 Sem fonte que comprove esse fluxo específico para Seguro-Desemprego na URA. **Removido como fato; marcado como ponto em aberto.** Relevante para avaliar risco de exclusão, mas não pode ser afirmado sem evidência.
