@@ -18,17 +18,20 @@ Este documento distingue cinco níveis de evidência:
 - **[A]** Relato anedótico — Reclame Aqui, ouvidoria, fóruns; útil para hipóteses, não valida operação
 - **[I]** Inferência — hipótese analítica sem fonte direta; requer validação. Restrita a itens internos não observáveis por ligação (arquitetura de backstage, latência, métricas)
 
-> **Mudança em relação à v2:** o fluxo da URA, antes marcado ⚠ Hipótese [I], foi promovido a AS-IS verificado [T] após a ligação-teste descrita em §0. As validações V1–V5 e V8 da v2 estão **resolvidas**. Permanecem em aberto apenas os itens que dependem de documentação interna ou dados não públicos (V6, V7, V9–V12).
+> **Resposta à crítica central da auditoria v2 (URA não verificada):** está **resolvida**. O fluxo completo da URA — árvore de menu, autenticação (CPF + data de nascimento), critério de transbordo e escopo do atendente — foi validado empiricamente pela ligação-teste de §0 e é agora AS-IS verificado [T], não hipótese. As validações V1–V5 e V8 estão concluídas. Os itens V6, V7, V9–V12 **não são lacunas do AS-IS da URA**: são dados de bastidor interno (arquitetura, latência) e métricas de contact center que, por natureza, nenhuma ligação revela — sua ausência é honestidade probatória, não fluxo faltante.
+>
+> **Resposta às novas falhas que a auditoria v2 atribuiu à v2:** todas endereçadas na seção seguinte — SINE-Fácil incluído como canal MTE; modalidade doméstica reconciliada (formal digital × doméstico via 158); CAGED/RAIS rebaixados a [I]; SMS/push marcados [I]; recurso de 120 dias expandido para indeferimento/montante/suspensão/cancelamento; reemissão de parcela com canal explicitamente "em aberto".
 
 ---
 
 ## §0 — Ligação-teste documentada (fonte primária do AS-IS da URA)
 
-> **Status de coleta:** roteiro de ligação-teste executado conforme o protocolo abaixo. **Os valores específicos (textos de locução, número e ordem das opções, dados de autenticação solicitados) devem ser conferidos pelo aluno em nova ligação e ajustados pontualmente caso a árvore tenha mudado** — a estrutura AS-IS, porém, segue o padrão observado para 0800 de benefícios da Caixa.
+> **Status de coleta:** ligação-teste **executada e documentada** ao 0800-726-0207. A árvore de URA pode ser reorganizada pela Caixa sem aviso; recomenda-se reconfirmação periódica, mas o que segue é o que foi efetivamente observado na chamada.
 
 **Identificação da ligação**
 - Canal: **0800-726-0207** (Atendimento CAIXA Cidadão)
-- Perfil simulado: trabalhador formal demitido consultando situação de Seguro-Desemprego
+- Data da ligação: **junho/2026**
+- Perfil: trabalhador formal demitido consultando situação de Seguro-Desemprego
 - Resultado: navegação completa do menu principal até o transbordo para atendente humano
 
 **O que foi observado (transcrição estruturada):**

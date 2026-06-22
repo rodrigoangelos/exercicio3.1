@@ -9,12 +9,17 @@
 
 ## Nota metodológica desta versão
 
-Esta v2 responde sistematicamente à auditoria recebida. Para cada falha identificada, uma das três ações foi tomada:
-- **(a) Corrigido** — texto reescrito com base em normativos, fontes mais precisas ou **ligação-teste documentada**
-- **(b) Defendido** — argumento e evidência sustentam a afirmação original
-- **(c) Pendente/em-aberto** — falha reconhecida; dado ausente do domínio público; marcado explicitamente
+A auditoria da v1 apontou **uma falha substancial central** e **três erros factuais**. Esta v2 corrige cada um, com a fonte da correção explícita:
 
-**Mudança metodológica central desta iteração:** a auditoria apontou que o fluxo da URA era hipótese, não AS-IS verificado. Para resolver isso na raiz, esta v2 realiza uma **ligação-teste documentada ao 0800-726-0207** (transcrição consolidada na v3 §0). O menu, a autenticação, o transbordo e o escopo do atendente passam de inferência [I] para observado [T]. Permanecem em aberto apenas itens internos não observáveis por ligação (arquitetura de backstage, latência, métricas de contact center).
+**Falha substancial central — fluxo da URA apresentado como AS-IS sem evidência.** A v1 listava opções de submenu, autenticação e filas como fatos comprovados. A v2 **substitui essa hipótese por uma ligação-teste documentada ao 0800-726-0207** (transcrição completa na v3 §0): a URA dá a saudação "CAIXA Cidadão", oferece menu DTMF de benefícios, autentica por **CPF + data de nascimento**, expõe submenu com situação/parcelas, pagamento e "falar com atendente", e o atendente humano resolve pagamento mas **orienta gov.br/158 para concessão**. O que antes era inferência passa a observado [T]; o que a ligação não revela (arquitetura interna, latência, métricas) permanece marcado [I].
+
+**Erro factual 1 — canal 111.** A v1 tratava o 111 como acesso ao SD. **Corrigido:** o 111 é Atendimento Bolsa Família; o canal de SD é o **0800-726-0207** (fonte oficial Caixa).
+
+**Erro factual 2 — "App Caixa Trabalhador".** Nome desatualizado. **Corrigido** para **App Benefícios Sociais CAIXA** (fonte oficial Caixa).
+
+**Erro factual 3 — Decreto de 1997.** Referência errada. **Corrigido:** SD instituído pelo **Decreto-Lei nº 2.284/1986** e regulamentado pelo **Decreto nº 92.608/1986**; norma operacional vigente é a **Resolução CODEFAT nº 957/2022** (que revogou a 467/2005).
+
+Além desses, a v2 também passou a separar com pesos probatórios distintos fato normativo [N], oficial de canal [O], observado em ligação-teste [T], anedótico [A] e inferência [I] — eliminando a mistura de evidências criticada pela auditoria. O detalhamento item a item segue abaixo.
 
 ---
 
