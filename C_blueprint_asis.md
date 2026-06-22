@@ -126,6 +126,18 @@ sequenceDiagram
 
 ## Legenda e Notas de Leitura
 
+### As 5 Camadas de Shostack no Blueprint
+
+1. **Evidências Físicas** (topo) — Artefatos tangíveis/digitais que o cidadão encontra ou usa: documentos, números de telefone, locuções de URA, logins, protocolos etc.
+
+2. **Ações do Cidadão** (segunda linha) — O que o cidadão faz em cada etapa: requer benefício, disca, tecla opção, aguarda, explica caso, encerra etc.
+
+3. **Frontstage** (terceira linha, separado por Linha de Interação) — O que o cidadão VÊ/OUE como resposta direta: canal 0800 disponível, saudação da URA, menu DTMF, atendente humano, encerramento. A URA e o Atendente são ambos frontstage (interagem com cidadão), mas a URA tem funcionamento parcialmente oculto (sistema, não pessoa).
+
+4. **Backstage** (quarta linha, separado por Linha de Visibilidade) — O que o cidadão NÃO vê: operação interna da URA, consultas a sistemas, registros de atendimento, verificação de dados etc.
+
+5. **Processos de Suporte** (quinta linha, separado por Linha de Interação Interna) — Sistemas de infraestrutura que alimentam o serviço: CNIS, Sistema SD, Sistemas Caixa, Gov.br, Empregador Web, Dataprev etc.
+
 ### Linhas divisórias (Shostack)
 
 | Linha | Posição na tabela | Significado |
