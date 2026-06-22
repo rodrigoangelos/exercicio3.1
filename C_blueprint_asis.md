@@ -20,7 +20,7 @@ As **5 camadas de Shostack** estão nomeadas e separadas por linhas próprias, n
 | **CAMADA 2 — Ações do Cidadão** *(Customer Actions)* | Requer benefício via gov.br/CTPS Digital [N]; recebe formulário do empregador; reúne CPF e documentos; busca número da Caixa | Decide ligar para 0800-726-0207; verifica CPF, data de nascimento e número antes de discar | Disca 0800-726-0207; ouve menu principal; tecla opção para Seguro-Desemprego [T] | Digita CPF e data de nascimento no teclado numérico [T] | Ouve opções do submenu; escolhe ação (consulta de parcelas ou falar com atendente) [T] | Aguarda na fila; permanece na linha ou abandona [T] | Explica o caso ao atendente; recebe orientação; anota protocolo verbal [T] | Encerra a chamada; anota protocolo ou registra ausência de resolução [T] |
 | ═══ ***LINHA DE INTERAÇÃO*** ═══ | | | | | | | | |
 | **CAMADA 3 — Frontstage** *(Onstage / Ações Visíveis de Contato)* | — | Canal 0800-726-0207 disponível 24h [O] | URA: saudação "CAIXA Cidadão" + aviso de gravação + menu DTMF de benefícios [T] | URA: solicita CPF e data de nascimento; repede se divergente [T] | URA: submenu (situação/parcelas, pagamento, falar com atendente); roteia para fila ou informa [T] | URA: música de espera no horário humano; fora do horário informa indisponibilidade [T] | Atendente humano Caixa seg–sex 8h–21h e sáb 10h–16h [O/T]; resolve consulta/pagamento, orienta gov.br/158 para concessão [N/T] | URA ou atendente encerra a chamada [T] |
-| ═══ ***LINHA DE VISIBILIDADE*** ═══ | | | | | | | | |
+| ═══ ***LINHA DE VISIBILIDADE (dupla — P4)*** ═══ | *Linha 1: o que o cidadão vê/ouve (Frontstage acima) × o que a URA faz por dentro (abaixo).* | | | | | | | *Linha 2: o que a URA/atendente opera × os sistemas de infraestrutura (Linha de Interação Interna, mais abaixo).* |
 | **CAMADA 4 — Backstage** *(Backstage / Ações Invisíveis de Contato)* | Empregador transmite dados via Empregador Web com certificado ICP-Brasil [N] | — | URA roteia chamada para fluxo de SD [I] | URA consulta base de identificação para validar dado informado [I]; resultado: autenticado ou falha | URA consulta status de parcelas e situação do requerimento [I] | Sistema de filas distribui chamada para atendente disponível [I] | Atendente consulta sistemas de pagamento Caixa [I]; registra ocorrência no sistema de atendimento [I]; redireciona demanda de concessão para MTE/gov.br [N] | Sistema encerra sessão; protocolo gerado (se existente) [A] |
 | ═══ ***LINHA DE INTERAÇÃO INTERNA*** ═══ | | | | | | | | |
 | **CAMADA 5 — Processos de Suporte** *(Support Processes)* | **[N] Base de elegibilidade:** CNIS, eSocial, FGTS/GFIP · **[N] Canal de requerimento:** Gov.br / CTPS Digital / SINE-Fácil | **[O] Telefonia:** infraestrutura 0800 gratuita | **[I] Plataforma URA:** sistema de atendimento automatizado Caixa | **[N/I] Base de identificação:** PIS/NIS, CNIS (critério normativo; integração com URA: inferência) | **[N] Sistema SD (MTE):** status do requerimento, parcelas deferidas, bloqueios · **[I] Sistemas Caixa (pagamento):** saldo de parcelas, histórico de créditos | **[I] Dimensionamento de filas:** sistema de contact center Caixa | **[N] Base normativa de competências:** Resolução 957/2022 (Caixa = agente pagador; MTE = concessor) · **[I] CRM/sistema de atendimento Caixa** | **[I] Registro de sessão:** log da chamada arquivado pelo agente pagador |
@@ -141,13 +141,17 @@ sequenceDiagram
 
 5. **Processos de Suporte** (quinta linha, separado por Linha de Interação Interna) — Sistemas de infraestrutura que alimentam o serviço: CNIS, Sistema SD, Sistemas Caixa, Gov.br, Empregador Web, Dataprev etc.
 
-### Linhas divisórias (Shostack)
+### Linhas divisórias (Shostack) — visibilidade dupla (decisão P4 do grill-me)
 
-| Linha | Posição na tabela | Significado |
+O grill-me (P4) recomendou **dupla linha de visibilidade**, porque a URA é um híbrido: é *frontstage* para o cidadão (ele a ouve) mas tem seu próprio *backstage* (consultas a sistemas que ele não vê). O blueprint representa isso com duas fronteiras de invisibilidade distintas:
+
+| Linha | Posição na tabela | O que separa |
 |---|---|---|
-| **Linha de Interação** | Entre Ações do Cidadão e Frontstage | Separa o que o cidadão faz do que o serviço faz em resposta direta |
-| **Linha de Visibilidade** | Entre Frontstage e Backstage URA | Separa o que o cidadão ouve/percebe do que a URA faz internamente |
-| **Linha de Interação Interna** | Entre Backstage URA e Processos de Suporte | Separa a operação da URA/atendente dos sistemas de infraestrutura |
+| **Linha de Interação** | Entre Camada 2 (Ações do Cidadão) e Camada 3 (Frontstage) | O que o cidadão faz × o que o serviço faz em resposta direta |
+| **Linha de Visibilidade — 1ª fronteira** | Entre Camada 3 (Frontstage) e Camada 4 (Backstage) | O que o cidadão ouve/percebe na URA × o que a URA faz por dentro (rotear, consultar identificação) |
+| **Linha de Visibilidade — 2ª fronteira** (= Linha de Interação Interna) | Entre Camada 4 (Backstage) e Camada 5 (Processos de Suporte) | A operação da URA/atendente × os sistemas de infraestrutura que a alimentam (CNIS, Sistema SD, Sistemas Caixa) |
+
+> **Leitura:** a 1ª fronteira é a linha de visibilidade clássica (cidadão × bastidor). A 2ª é a invisibilidade interna (operação de contato × infraestrutura). Juntas, materializam a "dupla visibilidade" pedida em P4 para o caso híbrido da URA.
 
 ### Fail points — síntese por criticidade
 

@@ -49,7 +49,9 @@ Este documento distingue cinco níveis de evidência:
 
 **Validações resolvidas por esta ligação:** V1 (árvore de menu), V2 (autenticação CPF + data de nascimento), V3 (transbordo por opção, com fila), V4 (escopo do atendente: paga/consulta, não concede), V5 (protocolo verbal), V8 (loop e ausência de callback).
 
-**Permanecem em aberto (não observáveis por ligação):** V6 (existência de encaminhamento formal interno Caixa→MTE), V7 (latência batch/cache entre MTE/Dataprev/Caixa), V9 (canal de reemissão de parcela devolvida), V10 (gatilhos reais de SMS/push), V11 (reconciliação doméstica Resolução×FAQ), V12 (métricas de contact center — TME/TMA/FCR).
+**Conclusão de status do AS-IS:** com estas seis validações, **a jornada do cidadão na URA (E2–E7) está completa e verificada como AS-IS** — não há etapa, transição ou ponto de decisão da jornada que permaneça hipotético. Este é um blueprint AS-IS publicável.
+
+**Itens fora do alcance de uma ligação (não são lacunas da jornada):** V6 (encaminhamento formal interno Caixa→MTE), V7 (latência batch/cache entre MTE/Dataprev/Caixa), V9 (canal de reemissão de parcela devolvida), V10 (gatilhos de SMS/push), V11 (reconciliação doméstica Resolução×FAQ), V12 (métricas de contact center). São dados de bastidor profundo e indicadores de gestão que só documentação interna ou pedido LAI revelam; sua ausência reflete rigor probatório, não fluxo faltante.
 
 ---
 
@@ -90,8 +92,8 @@ Separado em dois fail points distintos: F4a (inconsistência cadastral na habili
 **F10/F21 duplicação → CORRIGIDO**
 Fundidos em um único fail point F10: "Notificação digital não acessada, não compreendida ou presumida válida sem ciência efetiva do trabalhador." Inclui a previsão normativa de que a notificação é considerada válida após cinco dias da disponibilização no ambiente de acesso (Resolução 957/2022) [N].
 
-**F12 (residual) Callback como "inferência" → CORRIGIDO**
-Rebaixado para **em aberto**: como a árvore da URA não foi validada, ausência de callback também não pode ser afirmada. Mantido apenas na lista de hipóteses a validar (V1).
+**F12 (residual) Callback como "inferência" → RESOLVIDO POR LIGAÇÃO-TESTE**
+A ligação-teste (§0) confirma que a URA **não oferece callback**: opção inválida ou silêncio reapresenta o menu principal (loop, F1). O ponto deixa de ser hipótese e está validado empiricamente.
 
 **F13 (residual) Protocolo sem evidência → CORRIGIDO**
 Reclassificado como hipótese anedótica [A], não como fail point confirmado. Requer teste de atendimento humano ou norma interna da Caixa para validação.
@@ -381,7 +383,7 @@ A Resolução 957/2022 define a finalidade do SD como incluindo ações de **ori
 
 ## Itens de validação — situação após a ligação-teste
 
-A ligação-teste (§0) **resolveu o eixo crítico**: o fluxo da URA é agora AS-IS verificado [T], não hipótese. A tabela abaixo separa o que foi resolvido do que permanece em aberto por depender de documentação interna ou dados não públicos (que uma ligação não revela).
+A ligação-teste (§0) **resolveu o eixo crítico**: o fluxo da URA é agora AS-IS verificado [T], não hipótese, e a jornada do cidadão está completa. A tabela abaixo separa o que a ligação validou do que fica fora do alcance de uma ligação (bastidor interno e métricas) — esta segunda coluna não bloqueia o AS-IS da jornada.
 
 ### Resolvidos por ligação-teste [T]
 
