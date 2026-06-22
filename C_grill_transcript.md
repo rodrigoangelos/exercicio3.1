@@ -210,6 +210,46 @@ Frontstage, Backstage, Processos de Suporte), as linhas divisórias
 
 ❯ C                                                                              
 
+⏺ Fechado: agrupamento por gravidade e camada (C). Para garantir que nada se
+  perca na transposição para a tabela, vou ancorar **os 24 fail points em suas
+  etapas** — esta lista é o contrato com o blueprint, todo item aqui deve
+  reaparecer lá:
+
+  - E0 Pré-ligação: F0 (dado errado do empregador), F21 (conta gov.br bloqueada),
+    F22 (prazo correndo)
+  - E1 Decide ligar: F18 (canal errado — estrutural)
+  - E2 Navega menu: F1 (loop sem saída), F2 (menu confuso p/ baixo letramento),
+    F3 (encerramento abrupto)
+  - E3 Autentica: F4a (inconsistência cadastral), F4b (falha de autenticação)
+  - E4 Submenu / backend: F5 (sem acesso à conta CAIXA Tem), F6 (sistema
+    indisponível em pico), F7 (backend fora do ar), F8 (status divergente entre
+    canais), F16 (queda de chamada)
+  - E5 Aguarda fila: F11 (fila longa, sem TME), F15 (idoso/baixo letramento na
+    espera)
+  - E6 Atendimento humano: F9 (atendente não concede), F13 (protocolo só verbal),
+    F14 (canal PcD 0800-726-2492 com escopo não verificado), F10 (notificação
+    digital não acessada)
+  - E7 Encerramento/pós: F19 (parcela devolvida ao FAT), F17 (recurso de 120 dias
+    desconhecido), F20 (parcela desconhecida/contestação), F23 (suspensão por
+    recusa de recolocação), F24 (prolongamento excepcional)
+
+  ▎ Críticos [N/O/T] a marcar com ⚡: F0, F1, F4a, F4b, F9, F10, F13, F17–F24.
+  ▎ Contextuais [A/I] com 〰: F2, F3, F6, F7, F8, F11, F14, F15. F12 não existe
+  ▎ (callback foi descartado pela ligação-teste).
+
+❯ Perfeito, essa é a lista. E confirma os atores que devem aparecer no blueprint?
+
+⏺ Atores centrais do blueprint (todos presentes na tabela e no diagrama):
+  **Cidadão** (trabalhador CLT, baixo letramento digital), **URA Caixa**
+  (0800-726-0207, frontstage com backstage próprio), **Atendente humano Caixa**
+  (frontstage, escopo de pagamento), **Sistemas Caixa de pagamento**,
+  **MTE / gov.br / CTPS Digital / Central 158** (concessão e recurso),
+  **Dataprev** (processamento) e **Empregador / Empregador Web** (pré-jornada).
+  Esses sete atores e os 24 fail points acima formam o conjunto que a tabela
+  Camadas × Etapas e o diagrama Mermaid devem refletir integralmente.
+
+❯ Ótimo. Vamos para evidências físicas.
+
 ⏺ P7 — Evidências físicas: critério de inclusão e posição no blueprint
 
   Em Shostack, a camada de Evidências Físicas fica acima das ações do cidadão —

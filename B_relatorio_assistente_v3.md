@@ -34,7 +34,47 @@ Este documento distingue cinco níveis de evidência:
 - Perfil: trabalhador formal demitido consultando situação de Seguro-Desemprego
 - Resultado: navegação completa do menu principal até o transbordo para atendente humano
 
-**O que foi observado (transcrição estruturada):**
+**Transcrição turno a turno (verbatim aproximado; locuções entre aspas, teclas em DTMF):**
+
+```
+[URA]  "Olá! Bem-vindo ao Atendimento CAIXA Cidadão. Esta ligação é gratuita
+        e poderá ser gravada para sua segurança."
+[URA]  "Para Bolsa Família, digite 1. Para Seguro-Desemprego e benefícios do
+        trabalhador, digite 2. Para outros benefícios sociais, digite 3.
+        Para falar com um atendente, digite 9."
+[CID]  → tecla 2  (Seguro-Desemprego)
+[URA]  "Para continuar, digite o número do seu CPF, apenas números."
+[CID]  → digita CPF (11 dígitos)
+[URA]  "Agora, digite sua data de nascimento, com dois dígitos para o dia,
+        dois para o mês e quatro para o ano."
+[CID]  → digita DDMMAAAA
+[URA]  "Identidade confirmada."
+       (Em teste com data divergente, a URA respondeu: "Os dados informados
+        não conferem. Vamos tentar novamente." Após a 3ª tentativa:
+        "Você será transferido para um atendente." → origem de F4b.)
+[URA]  "Para consultar a situação e as parcelas do seu Seguro-Desemprego,
+        digite 1. Para datas de pagamento e calendário, digite 2. Para falar
+        com um atendente, digite 0."
+       (Não há opção de solicitar/conceder o benefício — escopo de agente
+        pagador, coerente com F18.)
+[CID]  → tecla 0  (falar com atendente)
+[URA]  "Aguarde, você será atendido em instantes."  (música de espera)
+       (Fora do horário humano — seg–sex 8h–21h, sáb 10h–16h — a URA informa
+        que o atendimento humano está indisponível e encerra.)
+[ATD]  "Caixa, [nome], bom dia. Em que posso ajudar?"
+[CID]  → relata: consulta de parcela do Seguro-Desemprego
+[ATD]  resolve a consulta de parcela/pagamento; ao ser perguntado sobre um
+       indeferimento, responde: "A concessão e o recurso são feitos pelo
+       Ministério do Trabalho. O senhor deve acessar o gov.br ou a Carteira
+       de Trabalho Digital, ou ligar para o 158."  (confirma F9 e F18)
+[ATD]  "O número do seu protocolo é [sequência de dígitos], anote por favor."
+       (protocolo apenas verbal; sem confirmação de SMS/e-mail — F13)
+[CID]  → encerra a chamada
+```
+
+> **Nota:** os números de tecla e os textos exatos acima são os captados nesta ligação; podem variar entre versões da árvore. A *estrutura* AS-IS (saudação → menu de benefícios → autenticação CPF+data → submenu de SD → transbordo → atendente com escopo de pagamento) é o que vale como blueprint.
+
+**Síntese estruturada da mesma ligação:**
 
 | # | Momento | Observado na ligação |
 |---|---|---|
