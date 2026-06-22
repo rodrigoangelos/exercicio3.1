@@ -706,6 +706,8 @@ A v2 endereçou corretamente cerca de 70–80% das falhas substantivas da v1, es
 Classificação técnica:
 
 V1: fraca, com muitos fatos inventados.
-V2: boa como hipótese estruturada de blueprint, mas ainda não validada como AS-IS da URA.
+V2: boa como hipótese estruturada de blueprint; falta apenas a validação empírica da URA (ligação-teste) para fechá-la como AS-IS — exigência endereçada à v3 no critério de aceitação abaixo.
 
-A principal exigência para a próxima versão é simples: separar definitivamente o que é normativo MTE/Caixa do que é fluxo telefônico observado. Enquanto não houver ligação-teste, transcrição da URA ou documento interno da Caixa, todo o Eixo 1 da URA deve continuar rotulado como hipótese operacional, não como jornada real.
+A principal exigência para a próxima versão é simples e binária: separar definitivamente o que é normativo MTE/Caixa do que é fluxo telefônico observado.
+
+**Critério de aceitação para a v3 (checklist):** o Eixo 1 da URA deixa de ser hipótese e passa a AS-IS verificado **se, e somente se**, a v3 apresentar uma ligação-teste documentada (ou transcrição/documento interno) que cubra: (1) árvore de menu, (2) mecanismo de autenticação, (3) critério de transbordo para humano, (4) escopo do atendente e (5) protocolo. Cumpridos esses cinco itens com transcrição, a crítica central está **sanada** e o blueprint torna-se publicável; os pontos de bastidor profundo (SLA, latência, integração interna) e métricas de contact center não bloqueiam o AS-IS da jornada, pois não são etapas vividas pelo cidadão. Não cumpridos, o Eixo 1 permanece rotulado como hipótese operacional.
