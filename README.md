@@ -1,6 +1,5 @@
 # Exercício 3.1 — Service Blueprint AS-IS de um Serviço Público
 
-**Aluno:** Rodrigo Angelos
 **Disciplina:** IDP-TD 01/2026
 **Serviço escolhido:** Atendimento ao Seguro-Desemprego pela URA da Caixa
 
