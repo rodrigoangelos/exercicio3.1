@@ -268,6 +268,28 @@ flowchart TD
 
 ---
 
+## Matriz RACI — Responsabilidades por Ator e Etapa
+
+| Etapa / Ator | Empregador | Cidadão | Caixa (URA) | Caixa (Atend.) | MTE / Gov.br | Dataprev | Resultado Esperado |
+|---|---|---|---|---|---|---|---|
+| **E0 — Pré-jornada: Empregador Web** | **R** — Transmite dados; **A** — Responsável pela acurácia | I — Receberá formulário cópia | C — Integra em base de identificação | — | A — Recebe e processa no Sistema SD | R — Processa dados | Habilitação automática OU F0 bloqueio |
+| **E0 — Pré-jornada: Gov.br / CTPS Digital** | — | **R** — Requer benefício; **A** — Responsável pela inscrição | — | — | **A** — Gerencia serviço público; **R** — Responde à solicitação | **R** — Processa requerimento | Requerimento registrado OU F21 bloqueio |
+| **E1 — Decide ligar** | — | **R** — Escolhe canal (correto = MTE; erro = Caixa via F18) | — | — | **A** — Canal correto para concessão | — | Cidadão acessa canal adequado OU entra em F18 |
+| **E2 — Navega menu** | — | **R** — Interage com URA | **R** — Apresenta menu e autentica; **A** — Gerencia fluxo | — | — | — | Acesso ao submenu OU F1/F2/F3 abandono |
+| **E3 — Autentica** | — | **R** — Fornece CPF/dados | **R** — Valida dados | — | **C** — Base de identificação consultada | — | Autenticado OU F4a/F4b bloqueio |
+| **E4 — Navega submenu** | — | **R** — Escolhe opção | **R** — Consulta sistemas; **A** — Gerencia desfecho | — | **C** — Sistema SD consultado | **C** — Dados de requerimento disponíveis | Informação OU fila OU redirecionamento |
+| **E5–E6 — Fila / Atendimento humano** | — | **R** — Aguarda e explica caso | **A** — Encaminha para humano | **R** — Atende; **A** — Resolve ou redireciona | **C** — Para demandas de concessão/recurso | — | Resolução Caixa OU redirecionamento MTE via F9 |
+| **E7 — Encerramento** | — | **R** — Anota protocolo (se fornecido); **A** — Exerce direitos (recurso, reemissão) | — | **A** — Gera protocolo | **A** — Envia notificações | — | Encerramento ligação + monitoramento pós-jornada (F10-F24) |
+
+**Legenda RACI:**
+- **R** (Responsible) — Executa a ação / realiza o trabalho
+- **A** (Accountable) — Tem autoridade e prestação de contas sobre o resultado
+- **C** (Consulted) — Consultado antes da decisão (comunicação bidirecional)
+- **I** (Informed) — Informado após decisão (comunicação unidirecional)
+- **–** — Não participa da etapa
+
+---
+
 ## Distribuição de fail points por etapa e ator afetado
 
 | Etapa | ⚡ Críticos [N/O] | 〰 Hipotéticos [A/I] | Consequência se não mitigado |
