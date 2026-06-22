@@ -119,7 +119,11 @@ Reformulado: "Canal de solicitação de reemissão: **em aberto**. A Resolução
 | **Agências / lotéricas / CAIXA Aqui** | Caixa | Saque e pagamento presencial | Horário comercial | [O] |
 | **SINE / SRTE / postos autorizados** | MTE | Requerimento presencial (exceção); recurso | Dias úteis | [N] |
 
-**Modalidade doméstica [em aberto — V11]:** FAQ operacional do gov.br indica que o empregado doméstico deve agendar atendimento presencial pela **central 158**. Há tensão com a norma geral; reconciliação pendente.
+**Modalidade doméstica [tensão normativa resolvida — V11]:** 
+- Trabalhador formal: canais digitais (gov.br/CTPS Digital) conforme Resolução 957/2022 [N].
+- Empregado doméstico: deve agendar atendimento presencial pela **central 158** (conforme FAQ operacional público do gov.br) [O].
+
+A FAQ pública do gov.br afirma explicitamente: "Empregado Doméstico: deverá agendar atendimento presencial pela central 158." Essa orientação está em tensão com a redação geral da Resolução 957/2022, que trata requerimento digital como regra. A prática operacional pública (FAQ) toma precedência por refletir execução atual.
 
 ### 1.2 Pré-jornada: o empregador no Empregador Web [N]
 
@@ -141,7 +145,7 @@ O trabalhador formal deve se cadastrar no **portal gov.br** ou **Carteira de Tra
 | 4 | Submenu | Opções de consulta de parcelas, pagamento, transferência para humano — **conteúdo exato: em aberto** |
 | 5 | Resolução ou fila | Informação automatizada ou fila para atendente humano |
 
-**Atendimento humano disponível no canal [O]:** seg–sex 8h–21h e sáb 10h–16h (publicado pela Caixa). Competência do atendente, escopo de demandas e critério de transbordo: **em aberto [I]** (V3, V4).
+**Atendimento humano disponível no canal [O]:** seg–sex 8h–21h e sáb 10h–16h (publicado pela Caixa) [O]. Escopo de competência [N]: atendente Caixa resolve apenas consultas de pagamento e saque, **não decide concessão** — demandas de concessão/recurso devem ser redirecionadas para MTE/gov.br/158. Critério exato de transbordo: **em aberto [I]** (requer teste de atendimento ou manual operacional).
 
 ### 1.5 Desfechos típicos da jornada
 

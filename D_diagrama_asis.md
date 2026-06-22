@@ -108,6 +108,17 @@ flowchart TD
     ABAND -->|"chamada\nencerrada"| ENC
 
     %% ══════════════════════════════════════════════
+    %% E4–E5 — PÓS-SUBMENU: ACESSO À CONTA DIGITAL
+    %% ══════════════════════════════════════════════
+    F5(["⚡ F5\nTrabalhador não consegue acessar/\nmovimentar conta digital CAIXA Tem [N/A]"])
+    F16(["⚡ F16\nQueda de chamada por sinal precário;\nretrabalho total [I]"])
+
+    RESOL -->|"trabalhador direciona\npara App"| F5
+    F5 -->|"conta inacessível;\nsem saque →"| ABAND
+    URA -.->|"chamada"| F16
+    F16 -->|"perda total\nda ligação →"| CID
+
+    %% ══════════════════════════════════════════════
     %% E5–E6 — FILA E ATENDIMENTO HUMANO (⚠ [I])
     %% ══════════════════════════════════════════════
     FILA["E5 — Fila para\natendente humano ⚠ [I]"]
@@ -116,6 +127,7 @@ flowchart TD
     ATN["🧑 Atendente Humano Caixa\nseg–sex 8h–21h · sáb 10h–16h [O]\nEscopo: consulta / pagamento"]
     F9(["⚡ F9\nAtendente não decide concessão;\nredireciona para MTE\nsem prazo definido [N/O]"])
     F13(["〰 F13\nAusência de protocolo\nescrito automático [A]"])
+    F14(["〰 F14\nCanal PcD auditiva/fala:\nescopo para SD não verificado [O/I]"])
 
     FILA -->|"espera longa"| F11
     FILA -->|"timeout /\ndesconexão"| F15
@@ -123,9 +135,11 @@ flowchart TD
     F15 -->|"desiste →"| ABAND
     ATN -->|"demanda de\nconcessão →"| F9
     ATN -->|"sem protocolo\nescrito →"| F13
+    ATN -->|"cidadão PcD auditiva/fala\nvia canal alternativo"| F14
     ATN -->|"atendimento\nconcluído →"| ENC
     F9 -->|"redireciona cidadão\npara canal correto"| MTE_ORG
     F13 -->|"cidadão sem rastro;\nrecontato provável →"| CID
+    F14 -->|"escopo SD não validado;\nmantém no fluxo →"| ATN
 
     %% ══════════════════════════════════════════════
     %% E7 — ENCERRAMENTO E FAIL POINTS PÓS-JORNADA
@@ -134,13 +148,22 @@ flowchart TD
     F10(["⚡ F10\nNotificação digital não acessada;\npresumida válida após 5 dias [N]"])
     F17(["⚡ F17\nRecurso de 120 dias desconhecido;\nexige conta gov.br Prata/Ouro [N]"])
     F19(["⚡ F19\nParcela devolvida ao FAT após 67 dias;\nreemissão em até 2 anos\n(canal em aberto) [N]"])
+    F20(["⚡ F20\nContestação de recebimento de parcela\ndesconhecida pelo trabalhador [N]"])
+    F23(["⚡ F23\nSuspensão por recusa de ação\nde recolocação — desconhecimento\nda causa [N]"])
+    F24(["⚡ F24\nTrabalhador não sabe se está abrangido\npor prolongamento excepcional\nde parcelas [N]"])
 
     ENC -->|"notificação não\nchega / não é lida"| F10
     ENC -->|"indeferimento\nnão contestado"| F17
     ENC -->|"parcela não\nsacada"| F19
+    ENC -->|"fraude / erro\nbancário desconhecido"| F20
+    ENC -->|"recusa de recolocação\ndesconhecida"| F23
+    ENC -->|"prolongamento\nexcepcional aplicável?"| F24
     F10 -->|"cidadão perde\nprazo de exigência →"| PERDA_PRAZO
     F17 -->|"120 dias vence;\nperde recurso →"| PERDA_PRAZO
     F19 -->|"parcela devolvida;\ncidadão solicita\nreemissão via →"| MTE_ORG
+    F20 -->|"sem saída;\ncontestação possível →"| MTE_ORG
+    F23 -->|"benefício\nsuspenso"| PERDA_PRAZO
+    F24 -->|"direito não\nexercido"| PERDA_PRAZO
 
     %% ══════════════════════════════════════════════
     %% SISTEMAS DE SUPORTE (BACKSTAGE)
@@ -168,8 +191,8 @@ flowchart TD
     classDef bloq     fill:#ffcdd2,color:#b71c1c,stroke:#c62828
     classDef decisao  fill:#fff9c4,color:#333,stroke:#f9a825
 
-    class F0,F4a,F9,F10,F17,F18,F19,F21,F22 failCrit
-    class F1,F2,F3,F4b,F6,F7,F8,F11,F13,F15 failHip
+    class F0,F4a,F5,F9,F10,F16,F17,F18,F19,F20,F21,F22,F23,F24 failCrit
+    class F1,F2,F3,F4b,F6,F7,F8,F11,F13,F14,F15 failHip
     class ELEG,SD,CAIXA_SIS,EMPWEB,GOVBR sistema
     class CID,EMP,MTE_ORG ator
     class URA,ATN canal
